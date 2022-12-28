@@ -1,3 +1,3 @@
 # disJointSet
-并查集简单测试代码
-Bresenham算法
+１．并查集简单测试代码
+２．Bresenham算法
