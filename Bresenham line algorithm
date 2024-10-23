@@ -59,3 +59,44 @@ void Line( float x1, float y1, float x2, float y2, const int& color )
 int main(){
     Line(0,150,55,55,5);
 }
+
+struct NodeInfo{int mRow,int mCol;};
+
+std::vector<NodeInfo> interpolate(int x0, int y0, int x1, int y1)
+{
+    std::vector<NodeInfo> lines;
+
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1;
+
+    int err = dx - dy;
+    int e2 = 0;
+
+    NodeInfo point;
+
+    while (true)
+    {
+        point.mRow = x0;
+        point.mCol = y0;
+        lines.push_back(point);
+
+        if (x0 == x1 && y0 == y1)
+            break;
+
+        e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
+    return lines;
+}
